@@ -1,0 +1,7 @@
+data from all over the world
+https://www.census.gov/data-tools/demo/idb/#/trends?menu=popViz
+
+Granular USA data
+https://popfactfinder.planning.nyc.gov/
+https://censusreporter.org/
+https://data.census.gov/profile/New_York

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flocalize - Find Your Crowd</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-users"></i>
+                <h1>Flocalize</h1>
+                <p class="tagline">Where your crowd is flocking to</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Onboarding Form -->
+            <div id="onboarding" class="onboarding">
+                <div class="form-container">
+                    <h2>Tell us about yourself</h2>
+                    <p class="subtitle">We'll help you find the perfect venues where people with your interests gather</p>
+                    
+                    <form id="userForm" class="user-form">
+                        <!-- Demographics -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-user"></i> Demographics</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="age">Age Group</label>
+                                    <select id="age" name="age" required>
+                                        <option value="">Select age group</option>
+                                        <option value="16-20">16-20</option>
+                                        <option value="21-25">21-25</option>
+                                        <option value="26-30">26-30</option>
+                                        <option value="31-35">31-35</option>
+                                        <option value="36-40">36-40</option>
+                                        <option value="41-45">41-45</option>
+                                        <option value="46-50">46-50</option>
+                                        <option value="51-55">51-55</option>
+                                        <option value="56-60">56-60</option>
+                                        <option value="61+">61+</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="gender">Gender</label>
+                                    <select id="gender" name="gender" required>
+                                        <option value="">Select gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="non-binary">Non-binary</option>
+                                        <option value="prefer-not-to-say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="lifestyle">Lifestyle</label>
+                                    <select id="lifestyle" name="lifestyle" required>
+                                        <option value="">Select lifestyle</option>
+                                        <option value="student">Student</option>
+                                        <option value="professional">Young Professional</option>
+                                        <option value="family">Family Oriented</option>
+                                        <option value="retiree">Retiree</option>
+                                        <option value="entrepreneur">Entrepreneur</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="demographicPreference">Find venues popular with</label>
+                                    <select id="demographicPreference" name="demographicPreference">
+                                        <option value="similar">People similar to me</option>
+                                        <option value="diverse">Diverse age groups</option>
+                                        <option value="younger">Younger crowds</option>
+                                        <option value="older">Older crowds</option>
+                                        <option value="mixed-gender">Mixed gender groups</option>
+                                        <option value="same-gender">Primarily my gender</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interests -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-heart"></i> Interests & Hobbies</h3>
+                            <div class="interests-grid">
+                                <!-- Entertainment & Nightlife -->
+                                <div class="interest-category">
+                                    <h4>Entertainment & Nightlife</h4>
+                                    <div class="checkbox-group">
+                                        <label><input type="checkbox" name="interests" value="entertainment.culture"> Arts & Culture</label>
+                                        <label><input type="checkbox" name="interests" value="entertainment.nightclub"> Nightlife & Dancing</label>
+                                        <label><input type="checkbox" name="interests" value="entertainment.cinema"> Movies & Cinema</label>
+                                        <label><input type="checkbox" name="interests" value="entertainment.museum"> Museums</label>
+                                        <label><input type="checkbox" name="interests" value="entertainment.theatre"> Theater & Shows</label>
+                                    </div>
+                                </div>
+
+                                <!-- Food & Dining -->
+                                <div class="interest-category">
+                                    <h4>Food & Dining</h4>
+                                    <div class="checkbox-group">
+                                        <label><input type="checkbox" name="interests" value="catering.restaurant"> Fine Dining</label>
+                                        <label><input type="checkbox" name="interests" value="catering.cafe"> Coffee Culture</label>
+                                        <label><input type="checkbox" name="interests" value="catering.bar"> Bars & Cocktails</label>
+                                        <label><input type="checkbox" name="interests" value="catering.fast_food"> Casual Dining</label>
+                                        <label><input type="checkbox" name="interests" value="catering.pub"> Pub Culture</label>
+                                    </div>
+                                </div>
+
+                                <!-- Sports & Fitness -->
+                                <div class="interest-category">
+                                    <h4>Sports & Fitness</h4>
+                                    <div class="checkbox-group">
+                                        <label><input type="checkbox" name="interests" value="sport.fitness"> Fitness & Gym</label>
+                                        <label><input type="checkbox" name="interests" value="sport.swimming"> Swimming</label>
+                                        <label><input type="checkbox" name="interests" value="sport.tennis"> Tennis</label>
+                                        <label><input type="checkbox" name="interests" value="sport.football"> Sports Events</label>
+                                        <label><input type="checkbox" name="interests" value="leisure.sports_centre"> Sports Centers</label>
+                                    </div>
+                                </div>
+
+                                <!-- Leisure & Relaxation -->
+                                <div class="interest-category">
+                                    <h4>Leisure & Relaxation</h4>
+                                    <div class="checkbox-group">
+                                        <label><input type="checkbox" name="interests" value="leisure.park"> Parks & Nature</label>
+                                        <label><input type="checkbox" name="interests" value="leisure.spa"> Spa & Wellness</label>
+                                        <label><input type="checkbox" name="interests" value="leisure.beach_resort"> Beach & Water</label>
+                                        <label><input type="checkbox" name="interests" value="leisure.picnic"> Outdoor Activities</label>
+                                        <label><input type="checkbox" name="interests" value="tourism.sights"> Sightseeing</label>
+                                    </div>
+                                </div>
+
+                                <!-- Shopping & Lifestyle -->
+                                <div class="interest-category">
+                                    <h4>Shopping & Lifestyle</h4>
+                                    <div class="checkbox-group">
+                                        <label><input type="checkbox" name="interests" value="commercial.shopping_mall"> Shopping Centers</label>
+                                        <label><input type="checkbox" name="interests" value="commercial.marketplace"> Local Markets</label>
+                                        <label><input type="checkbox" name="interests" value="commercial.clothing"> Fashion</label>
+                                        <label><input type="checkbox" name="interests" value="commercial.books"> Books & Reading</label>
+                                        <label><input type="checkbox" name="interests" value="commercial.electronics"> Technology</label>
+                                    </div>
+                                </div>
+
+                                <!-- Learning & Community -->
+                                <div class="interest-category">
+                                    <h4>Learning & Community</h4>
+                                    <div class="checkbox-group">
+                                        <label><input type="checkbox" name="interests" value="education.library"> Libraries</label>
+                                        <label><input type="checkbox" name="interests" value="activity.community_centre"> Community Centers</label>
+                                        <label><input type="checkbox" name="interests" value="office.coworking"> Co-working Spaces</label>
+                                        <label><input type="checkbox" name="interests" value="education.language_school"> Language Exchange</label>
+                                        <label><input type="checkbox" name="interests" value="activity"> Social Activities</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
+                            <div class="form-group">
+                                <label for="location">Enter your location or address</label>
+                                <input type="text" id="location" name="location" placeholder="e.g., New York, NY or use current location" required>
+                                <button type="button" id="useCurrentLocation" class="location-btn">
+                                    <i class="fas fa-crosshairs"></i> Use Current Location
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <label for="radius">Search within</label>
+                                <select id="radius" name="radius">
+                                    <option value="1000">1 km (0.6 miles)</option>
+                                    <option value="2000">2 km (1.2 miles)</option>
+                                    <option value="5000" selected>5 km (3.1 miles)</option>
+                                    <option value="10000">10 km (6.2 miles)</option>
+                                    <option value="25000">25 km (15.5 miles)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-search"></i>
+                            Find My Crowd
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results" class="results hidden">
+                <div class="results-header">
+                    <div class="results-info">
+                        <h2>Venues where your crowd is flocking to</h2>
+                        <p class="demographic-summary" id="demographicSummary">Venues sorted by demographic compatibility</p>
+                    </div>
+                    <button id="backToForm" class="back-btn">
+                        <i class="fas fa-arrow-left"></i> Modify Search
+                    </button>
+                </div>
+                
+                <div class="results-content">
+                    <div class="map-container">
+                        <div id="map"></div>
+                    </div>
+                    
+                    <div class="venues-list">
+                        <div id="loadingSpinner" class="loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Finding the best venues for you...</p>
+                        </div>
+                        <div id="venuesList" class="venues"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 Flocalize. Powered by <a href="https://www.geoapify.com/" target="_blank">Geoapify</a></p>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-content">
+            <i class="fas fa-users fa-spin"></i>
+            <h3>Finding your crowd...</h3>
+            <p>Analyzing venues in your area</p>
+        </div>
+    </div>
+
+    <!-- Venue Details Modal -->
+    <div id="venueModal" class="venue-modal hidden">
+        <div class="venue-modal-overlay" onclick="closeVenueModal()"></div>
+        <div class="venue-modal-content">
+            <div class="venue-modal-header">
+                <h2 id="modalVenueName">Venue Name</h2>
+                <button onclick="closeVenueModal()" class="modal-close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="venue-modal-body">
+                <div id="modalVenueDetails" class="venue-details-grid">
+                    <!-- Venue details will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="manhattan-demographics-engine.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
