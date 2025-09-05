@@ -33,13 +33,14 @@
 
 1. **Copy the environment template:**
    ```bash
-   copy .env.example .env
+   copy .env.example secrets.env
    ```
 
-2. **Add your API keys to `.env`:**
+2. **Add your API keys to `secrets.env`:**
    ```
    GEOAPIFY_API_KEY=your_actual_geoapify_key
-   SAFEGRAPH_API_KEY=your_actual_safegraph_key
+   ANTHROPIC_API_KEY=your_actual_anthropic_key
+   XAI_API_KEY=your_actual_xai_key
    # ... other keys
    ```
 

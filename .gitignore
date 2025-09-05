@@ -4,6 +4,8 @@
 .env
 .env.local
 .env.production
+secrets.env
+config-generated.js
 
 # API Keys and Secrets
 config/secrets.json
