@@ -1,7 +1,14 @@
 # 📸 Instagram API Setup Guide - Step by Step
 
 ## 🎯 **Overview**
-This guide walks you through getting Instagram API access for demographic analysis of venue locations. We'll be using the **Instagram Basic Display API** and **Instagram Graph API** for location-based content analysis.
+This guide walks you through ge3. **Create Instagram App**
+   - Click **"Create New App"**
+   - Enter details:
+     ```
+     Display Name: Flocalize - Find Your Crowd
+     Namespace: flocalize-find-your-crowd
+     Category: Travel & Local
+     ```stagram API access for demographic analysis of venue locations. We'll be using the **Instagram Basic Display API** and **Instagram Graph API** for location-based content analysis.
 
 ---
 
@@ -53,9 +60,9 @@ Before starting, ensure you have:
 
 2. **App Details**
    ```
-   App Name: Flocalize Demographics Engine
+   App Name: Flocalize
    App Contact Email: [your-email@domain.com]
-   Purpose: Location-based demographic analysis for venue discovery
+   Purpose: Find Your Crowd - Location-based demographic analysis for venue discovery
    ```
    - Click **"Create App"**
 
@@ -169,10 +176,10 @@ Before starting, ensure you have:
 3. **Submit for Review**
    - Provide detailed use case explanation:
      ```
-     Use Case: "We analyze publicly available Instagram location data 
-     to understand demographic patterns for venue recommendations. 
-     We aggregate anonymous demographic insights from location-tagged 
-     posts to help users find venues that match their preferences."
+     Use Case: "Flocalize helps users localize venues where their ideal social 
+     flock naturally congregates. We analyze publicly available Instagram location 
+     data to understand demographic patterns for venue recommendations, helping 
+     users discover where people with similar interests flock together in their local area."
      ```
 
 ---

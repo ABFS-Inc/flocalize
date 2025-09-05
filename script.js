@@ -1,5 +1,7 @@
 // Geoapify API Configuration
-const GEOAPIFY_API_KEY = 'f8fbedd105f044a282467393a92e58f2';
+// API key is now loaded securely through config.js
+// DO NOT put real API keys directly in this file!
+const GEOAPIFY_API_KEY = window.FloCalizeConfig ? window.FloCalizeConfig.get('geoapify') : 'API_KEY_NOT_CONFIGURED';
 const GEOAPIFY_BASE_URL = 'https://api.geoapify.com/v2/places';
 const GEOCODING_URL = 'https://api.geoapify.com/v1/geocode/search';
 
