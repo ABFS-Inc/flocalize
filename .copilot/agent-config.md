@@ -1,5 +1,5 @@
 
-# Instacharm Dating AI Project – Agent Configuration
+# Flocalize Project – Agent Configuration
 
 ## Agent Behavior
 - Professional, fact-based, concise, production-ready code
@@ -14,7 +14,7 @@
 ## Key Principles
 - DRY: No code or info duplication; use imports and references
 - PowerShell only for all commands
-- Always activate `instacharm_dating_ai_env` before running code
+- Always activate `flocalize_env` before running code
 - Use Windows-style paths
 
 ## File Operations
