@@ -77,13 +77,12 @@ def grok_completion(prompt_text, temperature=0.1, selected_model="None"):
             timeout=3600
         )
         
-        # Configure search parameters for real-time web search
         search_config = SearchParameters(
             sources=[
-                web_source(country="US"),  # Focus on US financial sites
-                news_source(country="US")  # Include US financial news
+                web_source(country="US"),
+                news_source(country="US")
             ],
-            mode="on",  # Always enable search for financial analysis
+            mode="on",
             return_citations=True,
             max_search_results=15
         )
@@ -110,7 +109,7 @@ def grok_completion(prompt_text, temperature=0.1, selected_model="None"):
 def setup_environment():
     load_dotenv('secrets.env')
     script_dir = os.getcwd()
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(script_dir, os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "fin-ai-writer-studio-451100-0d89ef998e7a.json")) # TODO: Check if this line is really necessary... if not, then delete.
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(script_dir, os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "fin-ai-writer-studio-451100-0d89ef998e7a.json"))
     return script_dir
 
 def fetch_gemini_models():
@@ -152,7 +151,7 @@ def fetch_grok_models():
         
         for model in language_models:
             model_id = getattr(model, 'name', '')
-            display_name = getattr(model, 'name', model_id)  # Use name as display name
+            display_name = getattr(model, 'name', model_id)
             if model_id:
                 models[model_id] = display_name            
         return models
@@ -192,13 +191,11 @@ if __name__ == "__main__":
     print("🧪 TESTING WEB SEARCH CAPABILITIES FOR CURRENT NVDA STOCK PRICE")
     print("="*70)
     
-    # Test query for current NVDA price
     nvda_test_query = "What is the current stock price of NVIDIA (NVDA) today? Please provide the exact current price in USD and the time/date of the quote. Please respond with only 1 line of text."
     
     print(f"📋 Test Query: {nvda_test_query}")
     print("="*70)
     
-    # Test Gemini with web search
     print("\n🤖 TESTING GEMINI (with GoogleSearch):")
     print("-"*50)
     try:
@@ -209,7 +206,6 @@ if __name__ == "__main__":
     
     print("\n" + "="*70)
     
-    # Test Claude with web search
     print(f"\n🤖 TESTING CLAUDE (with web search):")
     print("-"*50)
     claude_response = claude_completion(nvda_test_query, temperature=0.1, selected_model="claude-sonnet-4-20250514")
@@ -217,7 +213,6 @@ if __name__ == "__main__":
         
     print("\n" + "="*70)
     
-    # Test Grok with new SearchParameters
     print("\n🤖 TESTING GROK (with SearchParameters):")
     print("-"*50)
     try:

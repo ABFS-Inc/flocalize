@@ -1,3 +1,7 @@
+# Enhanced error handling and execution policy
+$ErrorActionPreference = "Stop"
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+
 function Get-CondaPath {
     $condaCmd = Get-Command conda -ErrorAction SilentlyContinue
     if ($condaCmd) { 
@@ -88,90 +92,33 @@ function Get-CondaPath {
 
 Write-Host "Setting up Flocalize environment..." -ForegroundColor Cyan
 
+# Get conda path
+$condaExe = Get-CondaPath
+
+# Create environment
+Write-Host "Creating conda environment with Python 3.12.9..." -ForegroundColor Yellow
+& $condaExe env remove -n flocalize_env -y
+& $condaExe create -n flocalize_env python=3.12.9 -c conda-forge -y
+
+# Activate the environment and install packages
+Write-Host "Activating environment and installing packages from requirements.txt using UV..." -ForegroundColor Yellow
+& $condaExe activate flocalize_env
+
+# Install uv
+Write-Host "Installing uv package manager..." -ForegroundColor Yellow
+& $condaExe install -n flocalize_env -c conda-forge uv -y
+
+# Install packages using UV with error handling
+Write-Host "Installing packages from requirements.txt using UV..." -ForegroundColor Yellow
 try {
-    $condaExe = Get-CondaPath
+    & $condaExe run -n flocalize_env uv pip install -r requirements.txt
+    if ($LASTEXITCODE -ne 0) {
+        throw "UV installation failed with exit code $LASTEXITCODE"
+    }
 } catch {
-    Write-Host "Cannot proceed without conda: $_" -ForegroundColor Red
+    Write-Host "Error installing packages with UV: $_" -ForegroundColor Red
+    Write-Host "UV installation failed. Check the error message above." -ForegroundColor Red
     exit 1
 }
 
-$step1Success = $false
-try {
-    Write-Host "Creating conda environment..." -ForegroundColor Yellow
-    
-    Write-Host "Removing existing environment if it exists..." -ForegroundColor Cyan
-    & $condaExe env remove -n flocalize_env -y 2>$null
-    
-    Write-Host "Creating fresh conda environment with Python 3.12.9..." -ForegroundColor Cyan
-    & $condaExe create -n flocalize_env python=3.12.9 -c conda-forge -y
-    
-    if ($LASTEXITCODE -ne 0) { 
-        Write-Host "Standard environment creation failed, trying with minimal packages..." -ForegroundColor Yellow
-        
-        & $condaExe create -n flocalize_env python=3.12.9 -y --no-deps
-        
-        if ($LASTEXITCODE -ne 0) {
-            Write-Host "Environment creation failed with exit code: $LASTEXITCODE" -ForegroundColor Red
-        } else {
-            Write-Host "Created minimal conda environment with Python 3.12.9" -ForegroundColor Green
-            $step1Success = $true
-        }
-    } else {
-        Write-Host "Created conda environment with Python 3.12.9" -ForegroundColor Green
-        $step1Success = $true
-    }
-} catch {
-    Write-Host "Failed to create conda environment: $_" -ForegroundColor Red
-}
-
-$step2Success = $false
-if ($step1Success) {
-    try {
-        Write-Host "Installing uv package manager..." -ForegroundColor Yellow
-        & $condaExe install -n flocalize_env -c conda-forge uv -y
-        if ($LASTEXITCODE -ne 0) { 
-            Write-Host "uv installation failed with exit code: $LASTEXITCODE" -ForegroundColor Red
-        } else {
-            Write-Host "Installed latest uv package manager" -ForegroundColor Green
-            $step2Success = $true
-        }
-    } catch {
-        Write-Host "Failed to install uv: $_" -ForegroundColor Red
-    }
-} else {
-    Write-Host "Skipping uv installation due to previous failures" -ForegroundColor Yellow
-}
-
-$step3Success = $false
-if ($step2Success) {
-    try {
-        Write-Host "Installing AI packages..." -ForegroundColor Yellow
-        
-        Write-Host "Running: conda run -n flocalize_env uv pip install google-genai==1.30.0 anthropic==0.64.0 xai-sdk==1.0.1 python-dotenv==1.1.1" -ForegroundColor Cyan
-        
-        & $condaExe run -n flocalize_env uv pip install google-genai==1.30.0 anthropic==0.64.0 xai-sdk==1.0.1 python-dotenv==1.1.1
-        
-        if ($LASTEXITCODE -eq 0) { 
-            Write-Host "Installed AI packages successfully" -ForegroundColor Green
-            $step3Success = $true
-        } else {
-            Write-Host "AI packages installation failed with exit code $LASTEXITCODE" -ForegroundColor Red
-        }
-        
-    } catch {
-        Write-Host "Failed to install AI packages: $_" -ForegroundColor Red
-    }
-} else {
-    Write-Host "Skipping AI packages installation due to previous failures" -ForegroundColor Yellow
-}
-
-if ($step1Success -and $step2Success -and $step3Success) {
-    Write-Host "Environment setup complete!" -ForegroundColor Green
-    exit 0
-} else {
-    Write-Host "Environment setup completed with errors!" -ForegroundColor Red
-    Write-Host "Step 1 (Conda env): $step1Success" -ForegroundColor $(if ($step1Success) { "Green" } else { "Red" })
-    Write-Host "Step 2 (UV install): $step2Success" -ForegroundColor $(if ($step2Success) { "Green" } else { "Red" })
-    Write-Host "Step 3 (AI packages): $step3Success" -ForegroundColor $(if ($step3Success) { "Green" } else { "Red" })
-    exit 1
-}
+Write-Host "Environment setup complete!" -ForegroundColor Green

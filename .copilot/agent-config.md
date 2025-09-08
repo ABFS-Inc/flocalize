@@ -13,6 +13,12 @@
 
 ## Key Principles
 - DRY: No code or info duplication; use imports and references
+- KISS: Keep it simple and straightforward
+- YAGNI: Only implement what is necessary now; avoid over-engineering
+- PEP8: Follow Python style guidelines for readability and consistency
+- Pythonic: Write idiomatic Python code
+- Elegant: Strive for clean, efficient, and maintainable solutions, with the smallest possible codebase
+- Modular: Break code into reusable, single-purpose functions and classes, within a clear and small files
 - PowerShell only for all commands
 - Always activate `flocalize_env` before running code
 - Use Windows-style paths
