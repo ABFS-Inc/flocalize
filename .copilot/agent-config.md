@@ -32,9 +32,8 @@
 ## Libraries & Tools
 - See `instructions.md` for all defaults, security, and workflow
 
-## Before Coding
-- See checklist in `instructions.md`
-
+## Known issues and limitations, and how to handle them
+- Sending commands to the PowerShell terminal may sometimes not show you the output because you are checking before the command has finished executing. Always wait a few seconds after sending a command before checking the output. In case you cannot see the output of a command, try searching for the expected output in the terminal text.
 ---
 
 *Configuration Version: 1.1*

@@ -1,0 +1,10 @@
+Starting script...
+Loading shapefile from: C:\Users\flori\OneDrive\USA\ABFS_Inc\DevelopmentProjects\flocalize\assets\zipcode_tabulation_areas\tl_2024_us_zcta520.shp
+File exists: True
+Loaded 33791 features
+Columns: ['ZCTA5CE20', 'GEOID20', 'GEOIDFQ20', 'CLASSFP20', 'MTFCC20', 'FUNCSTAT20', 'ALAND20', 'AWATER20', 'INTPTLAT20', 'INTPTLON20', 'geometry']
+Filtered to 2 ZIP codes
+Creating figure...
+Error: Unable to avoid copy while creating an array as requested.
+If using `np.array(obj, copy=False)` replace it with `np.asarray(obj)` to allow a copy when needed (no behavior change in NumPy 1.x).
+For more details, see https://numpy.org/devdocs/numpy_2_0_migration_guide.html#adapting-to-changes-in-the-copy-keyword.

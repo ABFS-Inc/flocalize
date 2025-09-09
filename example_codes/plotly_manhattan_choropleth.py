@@ -148,7 +148,7 @@ def create_manhattan_visualization():
                      'Location: (%{lon:.4f}, %{lat:.4f})<br>' +
                      '<extra></extra>'
     )
-
+    
     print("Saving HTML file...")
     output_dir = Path("test_outputs")
     output_dir.mkdir(exist_ok=True)
